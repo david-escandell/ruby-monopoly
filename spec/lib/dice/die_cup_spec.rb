@@ -11,7 +11,6 @@ describe 'DieCup' do
 
     rolled_value = die_cup.roll
     expect((rolled_value >= 1) && (rolled_value <= 12))
-    print('doo hickey')
   end
 
   it 'roll_min' do
