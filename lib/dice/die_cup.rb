@@ -18,7 +18,7 @@ class DieCup
 
   def roll
     rolled_value = 0
-    @dice.each |die| rolled_value = rolled_value + die.roll + 1
+    @dice.each |die| rolled_value = rolled_value + die.roll
     rolled_value
   end
 end
