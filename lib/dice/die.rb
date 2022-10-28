@@ -9,6 +9,6 @@ class Die
   end
 
   def roll
-    rand(1..@num_sides) + 1
+    rand(1..@num_sides)
   end
 end
