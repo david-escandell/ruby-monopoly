@@ -62,39 +62,7 @@ end
 class State
   attr_accessor :context
 
-  # @abstract
-  def singleProperty
-    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
-  end
-
-  # @abstract
-  def allProperty
-    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
-  end
-
-  # @abstract
-  def oneHouse
-    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
-  end
-
-  # @abstract
-  def twoHouses
-    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
-  end
-
-  def threeHouses
-    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
-  end
-
-  def fourHouses
-    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
-  end
-
-  def hotel
-    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
-  end
-
-  def mortgage
+  def rent
     raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
   end
 
@@ -118,6 +86,10 @@ class ConcreteStateSingleProperty < State
     puts 'ConcreteStateSingleProperty handles mortgage.'
     puts 'ConcreteStateSingleProperty wants to change the state of the context.'
     @context.transition_to(ConcreteStateMortgage.new)
+  end
+
+  def rent
+    return 8
   end
 end
 
