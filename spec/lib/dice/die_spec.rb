@@ -1,73 +1,63 @@
 # frozen_string_literal: true
 
-require_relative('../../../lib/dice/die')
+require_relative '../../../lib/dice/die'
 
-def test_roll_range(number_of_sides)
-  # number_of_sides = 8
-  rolled_value = Die.new(number_of_sides).roll
-  expect((rolled_value >= 1) && (rolled_value <= number_of_sides))
-end
+describe Die do
+  context "without a given number of sides" do
+    let(:die) { Die.new }
 
-def test_roll_min(number_of_rolls, number_of_sides)
-  # number_of_rolls = 10_000
-  # number_of_sides = 6
-  rolled_value = Die.new(number_of_sides).roll
-  min = number_of_rolls
-  [1..number_of_rolls].each do
-    min = rolled_value < min ? rolled_value : min
-  end
-  expect(min == 1)
-end
+    it "should default to six sides" do
+      expect(die.num_sides).to eq(6)
+    end
 
-def test_roll_max(number_of_rolls, number_of_sides)
-  # number_of_rolls = 10_000
-  # number_of_sides = 6
-  rolled_value = Die.new(number_of_sides).roll
-  max = 0
-  [1..number_of_rolls].each do
-    max = rolled_value > max ? rolled_value : max
-  end
-  expect(max == number_of_sides)
-end
+    it "should roll a random number between one and six" do
+      expect(die.roll).to be_between(1, 6)
+      1000.times { die.roll }
+    end
 
-describe 'eight sided die' do
-  it 'roll_range' do
-    test_roll_range(8) 
-    # number_of_sides = 8
-    # rolled_value = Die.new(number_of_sides).roll
-    # expect((rolled_value >= 1) && (rolled_value <= number_of_sides))
-  end
-end
+    it "should roll a minimum of 1" do
+      min = die.num_sides
+      1000.times do
+        rolled_value = die.roll
+        min = rolled_value < min ? rolled_value : min
+      end
+      expect(min).to eq(1)
+    end
 
-describe 'six sided die' do
-  it 'roll_range' do
-    test_roll_range(6) 
-    # number_of_sides = 6
-    # rolled_value = Die.new(number_of_sides).roll
-    # expect((rolled_value >= 1) && (rolled_value <= number_of_sides))
+    it "should roll a maximum of 6" do
+      max = 1
+      1000.times do
+        rolled_value = die.roll
+        max = rolled_value > max ? rolled_value : max
+      end
+      expect(max).to eq(6)
+    end
   end
 
-  it 'roll_min' do
-    test_roll_min(10_000, 6)
-    # number_of_rolls = 10_000
-    # number_of_sides = 6
-    # rolled_value = Die.new(number_of_sides).roll
-    # min = number_of_rolls
-    # [1..number_of_rolls].each do
-    #   min = rolled_value < min ? rolled_value : min
-    # end
-    # expect(min == 1)
-  end
+  context "given 12 sides" do
+    let(:die) { Die.new(12) }
 
-  it 'roll_max' do
-    test_roll_max(10_000, 6)
-    # number_of_rolls = 10_000
-    # number_of_sides = 6
-    # rolled_value = Die.new(number_of_sides).roll
-    # max = 0
-    # [1..number_of_rolls].each do
-    #   max = rolled_value > max ? rolled_value : max
-    # end
-    # expect(max == number_of_sides)
+    it "should roll a number between 1 and 12" do
+      expect(die.roll).to be_between(1, 12)
+      1000.times { die.roll }
+    end
+
+    it "should roll a minimum of 1" do
+      min = die.num_sides
+      1000.times do
+        rolled_value = die.roll
+        min = rolled_value < min ? rolled_value : min
+      end
+      expect(min).to eq(1)
+    end
+
+    it "should roll a maximum of 12" do
+      max = 1
+      1000.times do
+        rolled_value = die.roll
+        max = rolled_value > max ? rolled_value : max
+      end
+      expect(max).to eq(12)
+    end
   end
 end

@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-# die.rb
-
-# class to represent Die object
 class Die
-  def initialize(num_sides)
+  attr_reader :num_sides
+
+  def initialize(num_sides=6)
     @num_sides = num_sides
   end
 

@@ -1,45 +1,40 @@
 # frozen_string_literal: true
 
-require_relative('../../../lib/dice/die')
-require_relative('../../../lib/dice/die_cup')
+require_relative '../../../lib/dice/die'
+require_relative '../../../lib/dice/die_cup'
 
-describe 'DieCup' do
-  it 'roll_range' do
-    die_cup = DieCup.new
-    die_cup.add_die(Die.new(6))
-    die_cup.add_die(Die.new(6))
+describe DieCup do
+  context "when loaded with 2 dice" do
+    let(:die1) { Die.new }
+    let(:die2) { Die.new }
+    let(:die_cup) { DieCup.new }
+    let(:load) { die_cup.add_dice(die1, die2) }
 
-    rolled_value = die_cup.roll
-    expect((rolled_value >= 1) && (rolled_value <= 12))
-  end
-
-  it 'roll_min' do
-    number_of_rolls = 10
-    die_cup = DieCup.new
-    die_cup.add_die(Die.new(6))
-    die_cup.add_die(Die.new(6))
-    min = number_of_rolls
-    (1..number_of_rolls).each do
-      rolled_value = die_cup.roll
-      min = rolled_value < min ? rolled_value : min
+    before do
+      load
     end
-    puts "min = #{min}"
 
-    expect(min).to be >= 1
-  end
-
-  it 'roll_max' do
-    max = 0
-    number_of_rolls = 10
-    die_cup = DieCup.new
-    die_cup.add_die(Die.new(6))
-    die_cup.add_die(Die.new(6))
-    (1..number_of_rolls).each do
-      rolled_value = die_cup.roll
-      max = rolled_value > max ? rolled_value : max
+    it "should roll a random number between 2 and 12" do
+      expect(die_cup.roll).to be_between(1, 12)
+      1000.times { die_cup.roll }
     end
-    puts "max = #{max}"
 
-    expect(max).to be <= 12
+    it "should roll a minimum of 2" do
+      min = die_cup.dice.reduce(0) { |total, die| total + die.num_sides } # 12
+      1000.times do
+        rolled_value = die_cup.roll
+        min = rolled_value < min ? rolled_value : min
+      end
+      expect(min).to eq(2)
+    end
+
+    it "should roll a maximum of 12" do
+      max = 1
+      1000.times do
+        rolled_value = die_cup.roll
+        max = rolled_value > max ? rolled_value : max
+      end
+      expect(max).to eq(12)
+    end
   end
 end
