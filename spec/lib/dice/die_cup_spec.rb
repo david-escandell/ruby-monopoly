@@ -15,8 +15,7 @@ describe DieCup do
     end
 
     it "should roll a random number between 2 and 12" do
-      expect(die_cup.roll).to be_between(1, 12)
-      1000.times { die_cup.roll }
+      1000.times { expect(die_cup.roll).to be_between(1, 12) }
     end
 
     it "should roll a minimum of 2" do

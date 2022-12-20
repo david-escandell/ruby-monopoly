@@ -11,8 +11,7 @@ describe Die do
     end
 
     it "should roll a random number between one and six" do
-      expect(die.roll).to be_between(1, 6)
-      1000.times { die.roll }
+      1000.times { expect(die.roll).to be_between(1, 6) }
     end
 
     it "should roll a minimum of 1" do
@@ -38,8 +37,7 @@ describe Die do
     let(:die) { Die.new(12) }
 
     it "should roll a number between 1 and 12" do
-      expect(die.roll).to be_between(1, 12)
-      1000.times { die.roll }
+      1000.times { expect(die.roll).to be_between(1, 12) }
     end
 
     it "should roll a minimum of 1" do

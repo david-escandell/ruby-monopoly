@@ -11,7 +11,6 @@ class DieCup
     @dice.any?
   end
 
-  # TODO: validate arguments are Die objects
   def add_dice(*dice)
     dice.each { |die| @dice << die }
   end
@@ -21,11 +20,9 @@ class DieCup
   end
 
   def roll
-    unless @dice.empty?
-      rolled_value = 0
-      @dice.each { |die| rolled_value += die.roll }
+    rolled_value = 0
+    @dice.each { |die| rolled_value += die.roll }
 
-      rolled_value
-    end
+    rolled_value
   end
 end
