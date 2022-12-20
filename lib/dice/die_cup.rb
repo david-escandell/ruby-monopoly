@@ -1,26 +1,28 @@
 # frozen_string_literal: true
 
-# die_cup.rb
-
-# represents the die cup
 class DieCup
+  attr_reader :dice
+
   def initialize
     @dice = []
   end
 
-  def add_die(die)
-    @dice.push die
+  def loaded?
+    @dice.any?
   end
 
-  def remove_die(die)
-    @dice.delete die
+  def add_dice(*dice)
+    dice.each { |die| @dice << die }
+  end
+
+  def remove_dice(*dice)
+    dice.each { |die| @dice.delete die }
   end
 
   def roll
     rolled_value = 0
-    @dice.each do |die|
-      rolled_value += die.roll
-    end
+    @dice.each { |die| rolled_value += die.roll }
+
     rolled_value
   end
 end
